@@ -1,0 +1,98 @@
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+export default function ProduccionPage() {
+  return (
+    <div className="p-6 grid gap-6 max-w-4xl mx-auto">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-3xl font-bold text-center"
+      >
+        Solicitud de Orden de Producción
+      </motion.h1>
+
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="p-6 grid gap-4">
+          <h2 className="text-xl font-semibold">Datos de la Orden</h2>
+
+          <Input placeholder="Código de Orden" />
+          <Input placeholder="Nombre del Producto" />
+          <Input placeholder="Cantidad a producir" type="number" />
+          <Input placeholder="Fecha de inicio" type="date" />
+          <Input placeholder="Responsable" />
+
+          <Button className="mt-4">Enviar Solicitud</Button>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">Gramática Libre de Contexto</h2>
+
+          <pre className="bg-gray-100 p-4 rounded-xl text-sm">
+{`S -> Orden
+Orden -> encabezado cuerpo
+encabezado -> "ORDEN" id fecha
+cuerpo -> producto cantidad responsable
+producto -> "PROD" nombre
+cantidad -> "CANT" num
+responsable -> "RESP" nombre`}
+          </pre>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">Derivación (Izquierda)</h2>
+          <pre className="bg-gray-100 p-4 rounded-xl text-sm">
+{`S
+=> Orden
+=> encabezado cuerpo
+=> "ORDEN" id fecha cuerpo
+=> "ORDEN" id fecha producto cantidad responsable
+=> "ORDEN" id fecha "PROD" nombre cantidad responsable
+=> "ORDEN" id fecha "PROD" nombre "CANT" num responsable
+=> "ORDEN" id fecha "PROD" nombre "CANT" num "RESP" nombre`}
+          </pre>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">Derivación (Derecha)</h2>
+          <pre className="bg-gray-100 p-4 rounded-xl text-sm">
+{`S
+=> Orden
+=> encabezado cuerpo
+=> encabezado producto cantidad responsable
+=> encabezado producto cantidad "RESP" nombre
+=> encabezado producto "CANT" num "RESP" nombre
+=> encabezado "PROD" nombre "CANT" num "RESP" nombre
+=> "ORDEN" id fecha "PROD" nombre "CANT" num "RESP" nombre`}
+          </pre>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-xl rounded-2xl">
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-4">Árbol de Derivación (Representación)</h2>
+          <pre className="bg-gray-100 p-4 rounded-xl text-sm">
+{`            S
+            |
+          Orden
+         /     \
+ encabezado   cuerpo
+   /  |  \    /  |   \
+ORDEN id fecha prod cant resp
+               |    |    |
+            nombre num nombre`}
+          </pre>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
