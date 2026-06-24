@@ -1,0 +1,119 @@
+import { motion } from "framer-motion";
+
+// Componentes simples (SIN librerías externas)
+const Card = ({ children }) => (
+  <div style={{
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    borderRadius: "16px",
+    padding: "20px",
+    background: "#fff"
+  }}>
+    {children}
+  </div>
+);
+
+const Input = (props) => (
+  <input
+    {...props}
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      border: "1px solid #ccc",
+      width: "100%",
+      marginBottom: "10px"
+    }}
+  />
+);
+
+const Button = ({ children }) => (
+  <button style={{
+    background: "#2563eb",
+    color: "white",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "none",
+    width: "100%",
+    cursor: "pointer"
+  }}>
+    {children}
+  </button>
+);
+
+export default function ProduccionPage() {
+  return (
+    <div style={{ padding: "30px", maxWidth: "800px", margin: "auto" }}>
+      
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ textAlign: "center" }}
+      >
+        Solicitud de Orden de Producción
+      </motion.h1>
+
+      <Card>
+        <h2>Datos de la Orden</h2>
+        <Input placeholder="Código de Orden" />
+        <Input placeholder="Nombre del Producto" />
+        <Input type="number" placeholder="Cantidad" />
+        <Input type="date" />
+        <Input placeholder="Responsable" />
+        <Button>Enviar</Button>
+      </Card>
+
+      <br />
+
+      <Card>
+        <h2>Gramática</h2>
+        <pre>
+S → Orden
+Orden → encabezado cuerpo
+encabezado → ORDEN id fecha
+cuerpo → producto cantidad responsable
+producto → PROD nombre
+cantidad → CANT num
+responsable → RESP nombre
+        </pre>
+      </Card>
+
+      <br />
+
+      <Card>
+        <h2>Derivación Izquierda</h2>
+        <pre>
+S → Orden
+→ encabezado cuerpo
+→ ORDEN id fecha cuerpo
+→ ORDEN id fecha producto cantidad responsable
+→ ORDEN id fecha PROD nombre CANT num RESP nombre
+        </pre>
+      </Card>
+
+      <br />
+
+      <Card>
+        <h2>Derivación Derecha</h2>
+        <pre>
+S → Orden
+→ encabezado cuerpo
+→ encabezado producto cantidad responsable
+→ ORDEN id fecha PROD nombre CANT num RESP nombre
+        </pre>
+      </Card>
+
+      <br />
+
+      <Card>
+        <h2>Árbol</h2>
+        <pre>
+        S
+        |
+      Orden
+     /     \
+ encabezado  cuerpo
+        </pre>
+      </Card>
+
+    </div>
+  );
+}
